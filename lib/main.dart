@@ -1,9 +1,14 @@
- import 'package:flutter/material.dart';
+
+import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:provider/provider.dart';
+import 'package:word_hurdle_puzzle/hurdle_provider.dart';
 import 'package:word_hurdle_puzzle/word_hurdle_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+      create: (context) => HurdleProvider(),
+      child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
