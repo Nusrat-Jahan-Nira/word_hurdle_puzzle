@@ -22,6 +22,27 @@ class _WordHurdlePageState extends State<WordHurdlePage> {
       appBar: AppBar(
         title: const Text('Word Hurdle'),
       ),
+      body: Center(
+        child: Column(
+          children: [
+            Consumer<HurdleProvider>(
+              builder: (context, provider, child) =>
+              GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 5,
+                    mainAxisSpacing: 4,
+                    crossAxisSpacing: 4
+                  ),
+                  itemCount: provider.hurdleBoards.length,
+                  itemBuilder: (context,index){
+                    final wordle = provider.hurdleBoards[index];
+                    
+                  }
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
