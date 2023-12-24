@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:word_hurdle_puzzle/hurdle_provider.dart';
+import 'package:word_hurdle_puzzle/keyboard_view.dart';
 import 'package:word_hurdle_puzzle/wordle_view.dart';
 
 class WordHurdlePage extends StatefulWidget {
@@ -27,22 +28,26 @@ class _WordHurdlePageState extends State<WordHurdlePage> {
         child: Column(
           children: [
             Expanded(
-              child: Consumer<HurdleProvider>(
-                builder: (context, provider, child) =>
-                GridView.builder(
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 5,
-                      mainAxisSpacing: 4,
-                      crossAxisSpacing: 4
-                    ),
-                    itemCount: provider.hurdleBoards.length,
-                    itemBuilder: (context,index){
-                      final wordle = provider.hurdleBoards[index];
-                      return WordleView(wordle: wordle);
-                    }
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width * 0.70,
+                child: Consumer<HurdleProvider>(
+                  builder: (context, provider, child) =>
+                  GridView.builder(
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 5,
+                        mainAxisSpacing: 4,
+                        crossAxisSpacing: 4
+                      ),
+                      itemCount: provider.hurdleBoards.length,
+                      itemBuilder: (context,index){
+                        final wordle = provider.hurdleBoards[index];
+                        return WordleView(wordle: wordle);
+                      }
+                  ),
                 ),
               ),
-            )
+            ),
+            const KeyboardView()
           ],
         ),
       ),
