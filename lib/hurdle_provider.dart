@@ -44,4 +44,17 @@ class HurdleProvider extends ChangeNotifier{
 
  }
 
+  void deleteLetter() {
+   if(rowInputs.isNotEmpty){
+    rowInputs.removeAt(rowInputs.length - 1);
+    print(rowInputs);
+   }
+   if(count > 0){
+    hurdleBoards[index - 1] = Wordle(letter: '');
+    count--;
+    index--;
+   }
+   notifyListeners();
+  }
+
 }

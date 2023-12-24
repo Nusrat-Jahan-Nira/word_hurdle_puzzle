@@ -46,14 +46,35 @@ class _WordHurdlePageState extends State<WordHurdlePage> {
               ),
             ),
             Consumer<HurdleProvider>(
-                builder:(context, provider, child) => KeyboardView(
-                  excludedLetters: provider.excludedLetters,
-                  onPressed: (value){
-                    provider.inputLetter(value);
-                    print(value);
-                  },
-                )
-            )
+                builder: (context, provider, child) => KeyboardView(
+                      excludedLetters: provider.excludedLetters,
+                      onPressed: (value) {
+                        provider.inputLetter(value);
+                        print(value);
+                      },
+                    )),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Consumer<HurdleProvider>(
+                builder: (context, provider, child) => Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                      onPressed: (){
+                        provider.deleteLetter();
+                      },
+                      child:const Text('DELETE'),
+                    ),
+                    ElevatedButton(
+                      onPressed: (){
+
+                      },
+                      child: const Text('SUBMIT'),
+                    )
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
