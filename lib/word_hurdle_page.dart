@@ -12,12 +12,12 @@ class WordHurdlePage extends StatefulWidget {
 }
 
 class _WordHurdlePageState extends State<WordHurdlePage> {
-
   @override
   void didChangeDependencies() {
-    Provider.of<HurdleProvider>(context,listen: false).init();
+    Provider.of<HurdleProvider>(context, listen: false).init();
     super.didChangeDependencies();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,23 +31,29 @@ class _WordHurdlePageState extends State<WordHurdlePage> {
               child: SizedBox(
                 width: MediaQuery.of(context).size.width * 0.70,
                 child: Consumer<HurdleProvider>(
-                  builder: (context, provider, child) =>
-                  GridView.builder(
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 5,
-                        mainAxisSpacing: 4,
-                        crossAxisSpacing: 4
-                      ),
+                  builder: (context, provider, child) => GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 5,
+                              mainAxisSpacing: 4,
+                              crossAxisSpacing: 4),
                       itemCount: provider.hurdleBoards.length,
-                      itemBuilder: (context,index){
+                      itemBuilder: (context, index) {
                         final wordle = provider.hurdleBoards[index];
                         return WordleView(wordle: wordle);
-                      }
-                  ),
+                      }),
                 ),
               ),
             ),
-            const KeyboardView()
+            Consumer<HurdleProvider>(
+                builder:(context, provider, child) => KeyboardView(
+                  excludedLetters: provider.excludedLetters,
+                  onPressed: (value){
+                    provider.inputLetter(value);
+                    print(value);
+                  },
+                )
+            )
           ],
         ),
       ),
