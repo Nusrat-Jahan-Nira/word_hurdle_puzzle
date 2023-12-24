@@ -67,7 +67,12 @@ class _WordHurdlePageState extends State<WordHurdlePage> {
                     ),
                     ElevatedButton(
                       onPressed: (){
-
+                        if(!provider.isAValidWord){
+                          ScaffoldMessenger
+                              .of(context)
+                              .showSnackBar(const SnackBar(content: Text('Not a word from my dictionary!')));
+                          return;
+                        }
                       },
                       child: const Text('SUBMIT'),
                     )
