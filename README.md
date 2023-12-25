@@ -1,6 +1,6 @@
 # word_hurdle_puzzle
 
-A new Flutter project.
+A game project which name is word hurdle. User play this game guessing the correct word.
 
 ## Getting Started
 
