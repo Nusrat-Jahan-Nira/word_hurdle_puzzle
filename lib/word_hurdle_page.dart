@@ -74,11 +74,11 @@ class _WordHurdlePageState extends State<WordHurdlePage> {
                         ),
                         ElevatedButton(
                           onPressed: () {
-                            if (!provider.isAValidWord) {
-                              showMsg(
-                                  context, 'Not a word from my dictionary!');
-                              return;
-                            }
+                            // if (!provider.isAValidWord) {
+                            //   showMsg(
+                            //       context, 'Not a word from my dictionary!');
+                            //   return;
+                            // }
                             if (provider.shouldCheckForAnswer) {
                               provider.checkAnswer();
                             }

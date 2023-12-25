@@ -16,6 +16,8 @@ class HurdleProvider extends ChangeNotifier{
  bool wins = false;
 
  final lettersPerRow = 5;
+ final totalAttempts = 6;
+ int attempts = 0;
 
   bool get shouldCheckForAnswer => rowInputs.length == lettersPerRow;
 
@@ -35,7 +37,7 @@ class HurdleProvider extends ChangeNotifier{
   print(targetWord);
  }
 
- bool get isAValidWord => totalWords.contains(rowInputs.join('').toLowerCase());
+// bool get isAValidWord => totalWords.contains(rowInputs.join('').toLowerCase());
 
  inputLetter(String letter){
   if(count < lettersPerRow){
@@ -67,7 +69,32 @@ class HurdleProvider extends ChangeNotifier{
     if(targetWord == input){
       wins = true;
     }
+    else{
+     _markLetterOnBoard();
+     if(attempts < totalAttempts){
+      _goToNextRow();
+     }
+    }
 
+  }
+
+  void _markLetterOnBoard() {
+   for(int i=0; i<hurdleBoards.length; i++){
+    if(hurdleBoards[i].letter.isNotEmpty && targetWord.contains(hurdleBoards[i].letter)){
+     hurdleBoards[i].existsInTarget = true;
+    }
+    else if(hurdleBoards[i].letter.isNotEmpty && !targetWord.contains(hurdleBoards[i].letter)){
+     hurdleBoards[i].doesNotExistInTarget = true;
+     excludedLetters.add(hurdleBoards[i].letter);
+    }
+   }
+   notifyListeners();
+  }
+
+  void _goToNextRow() {
+   attempts++;
+   count = 0;
+   rowInputs.clear();
   }
 
 }
