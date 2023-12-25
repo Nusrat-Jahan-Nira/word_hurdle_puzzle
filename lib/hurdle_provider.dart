@@ -21,6 +21,8 @@ class HurdleProvider extends ChangeNotifier{
 
   bool get shouldCheckForAnswer => rowInputs.length == lettersPerRow;
 
+  bool get noAttemptsLeft => attempts == totalAttempts;
+
 
  init(){
   totalWords = words.all.where((element) => element.length == 5).toList();
@@ -97,4 +99,17 @@ class HurdleProvider extends ChangeNotifier{
    rowInputs.clear();
   }
 
+  reset(){
+   count = 0;
+   index = 0;
+   rowInputs.clear();
+   hurdleBoards.clear();
+   excludedLetters.clear();
+   attempts = 0;
+   wins = false;
+   targetWord = '';
+   generateBoard();
+   generateRandomWord();
+   notifyListeners();
+  }
 }
