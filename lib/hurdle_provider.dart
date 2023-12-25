@@ -13,8 +13,11 @@ class HurdleProvider extends ChangeNotifier{
  String targetWord = '';
  int count = 0;
  int index = 0;
+ bool wins = false;
 
  final lettersPerRow = 5;
+
+  bool get shouldCheckForAnswer => rowInputs.length == lettersPerRow;
 
 
  init(){
@@ -57,6 +60,14 @@ class HurdleProvider extends ChangeNotifier{
     index--;
    }
    notifyListeners();
+  }
+
+  void checkAnswer() {
+    final input = rowInputs.join('');
+    if(targetWord == input){
+      wins = true;
+    }
+
   }
 
 }
