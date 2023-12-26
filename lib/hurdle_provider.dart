@@ -39,7 +39,7 @@ class HurdleProvider extends ChangeNotifier{
   print(targetWord);
  }
 
-// bool get isAValidWord => totalWords.contains(rowInputs.join('').toLowerCase());
+  bool get isAValidWord => totalWords.contains(rowInputs.join('').toLowerCase());
 
  inputLetter(String letter){
   if(count < lettersPerRow){
@@ -112,4 +112,5 @@ class HurdleProvider extends ChangeNotifier{
    generateRandomWord();
    notifyListeners();
   }
+
 }

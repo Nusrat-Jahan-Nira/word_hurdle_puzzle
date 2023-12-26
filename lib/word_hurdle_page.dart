@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:word_hurdle_puzzle/helper_functions.dart';
@@ -8,11 +9,15 @@ import 'package:word_hurdle_puzzle/wordle_view.dart';
 class WordHurdlePage extends StatefulWidget {
   const WordHurdlePage({super.key});
 
+
   @override
   State<WordHurdlePage> createState() => _WordHurdlePageState();
 }
 
 class _WordHurdlePageState extends State<WordHurdlePage> {
+
+
+
   @override
   void didChangeDependencies() {
     Provider.of<HurdleProvider>(context, listen: false).init();
@@ -67,45 +72,27 @@ class _WordHurdlePageState extends State<WordHurdlePage> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         ElevatedButton(
+                          style:ElevatedButton.styleFrom(
+                            backgroundColor:  Colors.red,
+                          ),
                           onPressed: () {
                             provider.deleteLetter();
                           },
                           child: const Text('DELETE'),
                         ),
                         ElevatedButton(
-                          onPressed: () {
-                            // if (!provider.isAValidWord) {
-                            //   showMsg(
-                            //       context, 'Not a word from my dictionary!');
-                            //   return;
-                            // }
-                            if (provider.shouldCheckForAnswer) {
-                              provider.checkAnswer();
+                          style: ElevatedButton.styleFrom(
+                           backgroundColor: provider.count == 5? Colors.green: Colors.grey,
+                          ),
+                          onPressed: () async {
+
+                            if(provider.count == 5){
+                              _handleInput(provider);
                             }
-                            if (provider.wins) {
-                              showResult(context: context,
-                                title: 'You Win!!!',
-                                body: 'The word was ${provider.targetWord}',
-                                onPlayAgain: (){
-                                  Navigator.pop(context);
-                                  provider.reset();
-                                },
-                                onCancel: (){
-                                  Navigator.pop(context);
-                                },);
+                            else{
+                              showMsg(context, 'Word must be 5 letter');
                             }
-                            else if(provider.noAttemptsLeft){
-                              showResult(context: context,
-                                title: 'You Lost!!!',
-                                body: 'The word was ${provider.targetWord}',
-                                onPlayAgain: (){
-                                  Navigator.pop(context);
-                                  provider.reset();
-                                },
-                                onCancel: (){
-                                  Navigator.pop(context);
-                                },);
-                            }
+
                           },
                           child: const Text('SUBMIT'),
                         )
@@ -117,5 +104,40 @@ class _WordHurdlePageState extends State<WordHurdlePage> {
         ),
       ),
     );
+  }
+
+  _handleInput(HurdleProvider provider){
+    if (!provider.isAValidWord) {
+      showMsg(
+          context, 'Not a word from my dictionary!');
+      return;
+    }
+    if (provider.shouldCheckForAnswer) {
+      provider.checkAnswer();
+    }
+    if (provider.wins) {
+      showResult(context: context,
+        title: 'You Win!!!',
+        body: 'The word was ${provider.targetWord}',
+        onPlayAgain: (){
+          Navigator.pop(context);
+          provider.reset();
+        },
+        onCancel: (){
+          Navigator.pop(context);
+        },);
+    }
+    else if(provider.noAttemptsLeft){
+      showResult(context: context,
+        title: 'You Lost!!!',
+        body: 'The word was ${provider.targetWord}',
+        onPlayAgain: (){
+          Navigator.pop(context);
+          provider.reset();
+        },
+        onCancel: (){
+          Navigator.pop(context);
+        },);
+    }
   }
 }

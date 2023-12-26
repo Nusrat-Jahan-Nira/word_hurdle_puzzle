@@ -14,6 +14,7 @@ void showResult(
   showDialog(
       context: context,
       builder: (context) => AlertDialog(
+            backgroundColor: Colors.green ,
             title: Text(title),
             content: Text(body),
             actions: [
